@@ -1,0 +1,27 @@
+import pymysql
+
+# RDS 연결 정보
+rds_host = "your-rds-endpoint.rds.amazonaws.com"
+username = "your_username"
+password = "your_password"
+database_name = "your_database_name"
+
+# 데이터베이스 연결
+connection = pymysql.connect(host=rds_host,
+                             user=username,
+                             password=password,
+                             database=database_name)
+
+try:
+    with connection.cursor() as cursor:
+        # SQL 쿼리 실행
+        sql = "SELECT * FROM users"
+        cursor.execute(sql)
+        
+        # 결과 가져오기
+        result = cursor.fetchall()
+        for row in result:
+            print(row)
+
+finally:
+    connection.close()
